@@ -24,6 +24,8 @@ senhaInput.addEventListener('input', (evento) => senha = evento.target.value);
 userInput.addEventListener('input', (evento) => user = evento.target.value);
 idadeInput.addEventListener('input', (evento) => idade = evento.target.value);
 
+cadastrarUserBtn.addEventListener('click', cadastrar);
+
 async function cadastrar() {
   const refDoc = collection(db, 'user');
   await addDoc(refDoc, {
@@ -38,6 +40,21 @@ async function cadastrar() {
   .catch((erro) => {
     console.log('Ocorreu um erro ' + erro);
   })
+}
+
+function renderizaUser() {
+  document.getElementById('listaUser').innerHTML = users.map((user) => {
+    return `
+      <li>
+        <strong>ID: ${user.id}</strong>
+        <span>User: ${user.user}</span>
+        <span>Idade: ${user.idade}</span>
+        <button onclick="excluirUser('${user.id}')">Excluir</button>
+        <button onclick="atualizarUser('${user.id}')">Editar</button>
+      </li>
+    `;
+  })
+  
 }
 
 function render() {
@@ -80,7 +97,7 @@ function render() {
       <button id="buscarUsers">Buscar usuários</button>
 
       <div id="flex">
-        <ul></ul>
+        <ul id="listaUser"></ul>
       </div>
     </div>
   `;
