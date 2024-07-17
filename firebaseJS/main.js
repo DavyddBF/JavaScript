@@ -18,17 +18,17 @@ function render() {
       <h2>Cadastro Email e Senha</h2>
 
       <label>Email:</label>
-      <input/> 
+      <input id="email" type="email" placeholder="Digite seu email"/> 
 
       <br/><br/>
 
-      <label>Senha:</label>
-      <input/>
+      <label id="senha">Senha:</label>
+      <input id="senha" type="password" placeholder="Digite sua senha"/>
 
       <br/><br/>
 
-      <button>Cadastrar</button>
-      <button>Login</button>
+      <button id="cadastrarEmail">Cadastrar</button>
+      <button id="login">Login</button>
     </div>
 
       <br/><br/>
@@ -38,18 +38,17 @@ function render() {
       <h2>Cadastro User e Idade</h2>
 
       <label>User:</label>
-      <input/>
+      <input id="user" type="text" placeholder="Digite seu user"/>
 
       <br/><br/>
 
       <label>Idade:</label>
-      <input/>
+      <input id="idade" type="text" placeholder="Digite sua idade"/>
 
       <br/><br/>
 
-      <button>Cadastrar</button>
-      <button>Buscar usuários</button> <br/>
-
+      <button id="cadastrarUser">Cadastrar</button>
+      <button id="buscarUsers">Buscar usuários</button>
     </div>
   `;
 }
