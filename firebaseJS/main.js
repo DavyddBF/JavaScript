@@ -3,13 +3,13 @@ import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase
 import { db, auth } from './public/firebase/firebaseConnection';
 import { createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword } from 'firebase/auth';
 
-const email = '';
-const senha = '';
-const user = '';
-const idade = '';
-const users = [];
-const loginUser = false;
-const detalheUser = {};
+let email = '';
+let senha = '';
+let user = '';
+let idade = '';
+let users = [];
+let loginUser = false;
+let detalheUser = {};
 
 const emailInput = document.getElementById('email');
 const senhaInput = document.getElementById('senha');
