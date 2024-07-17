@@ -1,7 +1,7 @@
 import './style.css';
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { db, auth } from './public/firebase/firebaseConnection';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword } from 'firebase/auth';
 
 const email = '';
 const senha = '';
@@ -26,6 +26,7 @@ userInput.addEventListener('input', (evento) => user = evento.target.value);
 idadeInput.addEventListener('input', (evento) => idade = evento.target.value);
 
 cadastrarEmailBtn.addEventListener('click', novoUsuario);
+loginUser.addEventListener('click', loginUsuario)
 cadastrarUserBtn.addEventListener('click', cadastrar);
 buscarUsersBtn.addEventListener('click', buscarTodosUsers);
 
@@ -44,6 +45,27 @@ async function novoUsuario() {
       alert('Email já existe!!');
     }
   })
+}
+
+async function loginUsuario() {
+  await signInWithEmailAndPassword(auth, email, senha)
+  .then((value) => {
+    console.log('Logado com sucesso!!');
+    console.log(value);
+
+    detalheUser = {
+      uid: value.user.uid,
+      email: value.user.email
+    }
+
+    loginUser = true;
+
+    emailInput.value = '';
+    senhaInput.value = '';
+  })
+  .catch(() => {
+    console.log('Não foi possível fazer o login!!');
+  });
 }
 
 async function cadastrar() {
