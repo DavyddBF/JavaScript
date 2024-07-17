@@ -1,6 +1,10 @@
+const { exec } = require('child_process');
 const nodemon = require('nodemon');
 const browserSync = require('browser-sync').create();
-const path = require('path');
+
+const limparTerminal = () => {
+    exec('clear');
+}
 
 nodemon({
     script: './src/app/app.js',
@@ -9,9 +13,16 @@ nodemon({
 });
 
 nodemon.on('start', () => {
+    limparTerminal();
     console.log('Nodemon iniciou o servidor!!');
-}).on('restart', () => {
+}).on('restart', (files) => {
+    limparTerminal();
     console.log('Nodemon reiniciou o servidor!!');
+
+    if(files) {
+        console.log(`Os seguintes arquivos foram modificados: ${files}`);
+    }
+
     setTimeout(() => {
         browserSync.reload();
     }, 1000);
@@ -26,5 +37,5 @@ browserSync.init({
     proxy: 'https://localhost:3000/',
     files: ['*.js', '*.html', '*.css'],
     port: 4000,
-    open: false
+    open: true
 });
