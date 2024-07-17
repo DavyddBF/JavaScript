@@ -1,7 +1,7 @@
 const nodemon = require('nodemon');
-const { exec, execSync } = require('child_process');
+const { exec } = require('child_process');
 
-const liveServer = 'live-server --port=4000 --proxy=localhost:3000 --entry-file=./src/index.html';
+const liveServer = 'live-server --port=4000 --proxy=localhost:3000';
 let browserAberto = false;
 
 const limparTerminal = () => {
