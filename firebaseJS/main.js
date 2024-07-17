@@ -19,6 +19,21 @@ const loginBtn = document.getElementById('login');
 const cadastrarUserBtn = document.getElementById('cadastrarUser');
 const buscarUsersBtn = document.getElementById('buscarUsers');
 
+async function cadastrar() {
+  const refDoc = collection(db, 'user');
+  await addDoc(refDoc, {
+    user: user,
+    idade: idade
+  })
+  .then(() => {
+    console.log('Deu tudo certo!!');
+    userInput.value = '';
+    idadeInput.value = '';
+  })
+  .catch((erro) => {
+    console.log('Ocorreu um erro ' + erro);
+  })
+}
 
 function render() {
   const app = document.querySelector('#app');
