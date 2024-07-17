@@ -25,6 +25,7 @@ userInput.addEventListener('input', (evento) => user = evento.target.value);
 idadeInput.addEventListener('input', (evento) => idade = evento.target.value);
 
 cadastrarUserBtn.addEventListener('click', cadastrar);
+buscarUsersBtn.addEventListener('click', buscarTodosUsers);
 
 async function cadastrar() {
   const refDoc = collection(db, 'user');
@@ -39,6 +40,28 @@ async function cadastrar() {
   })
   .catch((erro) => {
     console.log('Ocorreu um erro ' + erro);
+  })
+}
+
+async function buscarTodosUsers() {
+  const refDoc = collection(db, 'user');
+  await getDocs(refDoc)
+  .then((snapshot) => {
+    let lista = [];
+
+    snapshot.forEach((cadaUser) => {
+      lista.push({
+        id: cadaUser.id,
+        user: cadaUser.data().user,
+        idade: cadaUser.data().idade
+      });
+    });
+
+    users = lista;
+    renderizaUser();
+  })
+  .catch((erro) => {
+    console.log('Houve um erro!! ' + erro)
   })
 }
 
