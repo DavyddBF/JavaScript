@@ -1,5 +1,5 @@
 import './style.css';
-import { collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db, auth } from './public/firebase/firebaseConnection';
 
 const user = '';
@@ -9,6 +9,15 @@ const senha = '';
 const users = [];
 const loginUser = false;
 const detalheUser = {};
+
+const emailInput = document.getElementById('email');
+const senhaInput = document.getElementById('senha');
+const userInput = document.getElementById('user');
+const idadeInput = document.getElementById('idade');
+const cadastrarEmailBtn = document.getElementById('cadastrarEmail');
+const loginBtn = document.getElementById('login');
+const cadastrarUserBtn = document.getElementById('cadastrarUser');
+const buscarUsersBtn = document.getElementById('buscarUsers');
 
 
 function render() {
@@ -22,7 +31,7 @@ function render() {
 
       <br/><br/>
 
-      <label id="senha">Senha:</label>
+      <label>Senha:</label>
       <input id="senha" type="password" placeholder="Digite sua senha"/>
 
       <br/><br/>
@@ -49,6 +58,10 @@ function render() {
 
       <button id="cadastrarUser">Cadastrar</button>
       <button id="buscarUsers">Buscar usuários</button>
+
+      <div id="flex">
+        <ul></ul>
+      </div>
     </div>
   `;
 }
