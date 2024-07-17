@@ -26,7 +26,7 @@ userInput.addEventListener('input', (evento) => user = evento.target.value);
 idadeInput.addEventListener('input', (evento) => idade = evento.target.value);
 
 cadastrarEmailBtn.addEventListener('click', novoUsuario);
-loginUser.addEventListener('click', loginUsuario)
+loginBtn.addEventListener('click', loginUsuario)
 cadastrarUserBtn.addEventListener('click', cadastrar);
 buscarUsersBtn.addEventListener('click', buscarTodosUsers);
 
