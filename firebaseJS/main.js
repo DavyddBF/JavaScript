@@ -1,5 +1,5 @@
 import './style.css';
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { db, auth } from './public/firebase/firebaseConnection';
 
 const email = '';
@@ -71,6 +71,22 @@ async function excluirUser(id) {
   .then(() => {
     console.log('User deletado com sucesso!!')
   });
+}
+
+async function atualizarUser(id) {
+  const refDoc = doc(db, 'user', id);
+  await updateDoc(refDoc, {
+    user: user,
+    idade: idade
+  })
+  .then(() => {
+    console.log('Edição feita com sucesso!!');
+    userInput.value = '';
+    idadeInput.value = '';
+  })
+  .catch((erro) => {
+    console.log('Houve um erro!! ' + erro);
+  })
 }
 
 function renderizaUser() {
