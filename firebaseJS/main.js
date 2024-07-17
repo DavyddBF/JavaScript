@@ -1,5 +1,5 @@
 import './style.css';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { db, auth } from './public/firebase/firebaseConnection';
 
 const email = '';
@@ -65,6 +65,14 @@ async function buscarTodosUsers() {
   })
 }
 
+async function excluirUser(id) {
+  const refDoc = doc(db, 'user', id);
+  await deleteDoc(refDoc)
+  .then(() => {
+    console.log('User deletado com sucesso!!')
+  });
+}
+
 function renderizaUser() {
   document.getElementById('listaUser').innerHTML = users.map((user) => {
     return `
@@ -72,8 +80,8 @@ function renderizaUser() {
         <strong>ID: ${user.id}</strong>
         <span>User: ${user.user}</span>
         <span>Idade: ${user.idade}</span>
-        <button onclick="excluirUser('${user.id}')">Excluir</button>
-        <button onclick="atualizarUser('${user.id}')">Editar</button>
+        <button id="excluirUserBtn" onclick="excluirUser('${user.id}')">Excluir</button>
+        <button id="atualizarUserBtn" onclick="atualizarUser('${user.id}')">Editar</button>
       </li>
     `;
   })
