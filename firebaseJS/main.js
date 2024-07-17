@@ -5,5 +5,3 @@ document.querySelector('#app').innerHTML = `
     <h2>Firebase + JS</h2>
   </div>
 `
-
-setupCounter(document.querySelector('#counter'))
