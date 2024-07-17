@@ -1,6 +1,7 @@
 import './style.css';
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { db, auth } from './public/firebase/firebaseConnection';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const email = '';
 const senha = '';
@@ -24,8 +25,26 @@ senhaInput.addEventListener('input', (evento) => senha = evento.target.value);
 userInput.addEventListener('input', (evento) => user = evento.target.value);
 idadeInput.addEventListener('input', (evento) => idade = evento.target.value);
 
+cadastrarEmailBtn.addEventListener('click', novoUsuario);
 cadastrarUserBtn.addEventListener('click', cadastrar);
 buscarUsersBtn.addEventListener('click', buscarTodosUsers);
+
+async function novoUsuario() {
+  await createUserWithEmailAndPassword(auth, email, senha)
+  .then(() => {
+    console.log('Cadastrado com sucesso!');
+    emailInput.value = '';
+    senhaInput.value = '';
+  })
+  .catch((erro) => {
+    if(erro.code == 'auth/weak-password'){
+
+      alert('Senha muito fraca!!');
+    } else if (erro.code == 'auth/email-already-in-use') {
+      alert('Email já existe!!');
+    }
+  })
+}
 
 async function cadastrar() {
   const refDoc = collection(db, 'user');
