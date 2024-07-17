@@ -2,10 +2,10 @@ import './style.css';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db, auth } from './public/firebase/firebaseConnection';
 
-const user = '';
-const idade = '';
 const email = '';
 const senha = '';
+const user = '';
+const idade = '';
 const users = [];
 const loginUser = false;
 const detalheUser = {};
@@ -18,6 +18,11 @@ const cadastrarEmailBtn = document.getElementById('cadastrarEmail');
 const loginBtn = document.getElementById('login');
 const cadastrarUserBtn = document.getElementById('cadastrarUser');
 const buscarUsersBtn = document.getElementById('buscarUsers');
+
+emailInput.addEventListener('input', (evento) => email = evento.target.value);
+senhaInput.addEventListener('input', (evento) => senha = evento.target.value);
+userInput.addEventListener('input', (evento) => user = evento.target.value);
+idadeInput.addEventListener('input', (evento) => idade = evento.target.value);
 
 async function cadastrar() {
   const refDoc = collection(db, 'user');
