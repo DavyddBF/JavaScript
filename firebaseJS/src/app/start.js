@@ -19,8 +19,7 @@ nodemon({
 });
 
 nodemon.on('start', () => {
-    limparTerminal();
-    console.log('Nodemon iniciou o servidor!!');
+    console.log('\nNodemon iniciou o servidor!!');
 
     if(!browserAberto) {
         exec(liveServer);
