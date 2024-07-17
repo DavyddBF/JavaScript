@@ -1,9 +1,15 @@
-const { exec } = require('child_process');
 const nodemon = require('nodemon');
-const browserSync = require('browser-sync').create();
+const { exec, execSync } = require('child_process');
+
+const liveServer = 'live-server --port=4000 --proxy=localhost:3000 --entry-file=./src/index.html';
+let browserAberto = false;
 
 const limparTerminal = () => {
-    exec('clear');
+    try {
+        process.stdout.write('\x1B[2J\x1B[0f');
+    } catch (error) {
+        console.error('Erro ao limpar o terminal', error.message);
+    }
 }
 
 nodemon({
@@ -15,16 +21,26 @@ nodemon({
 nodemon.on('start', () => {
     limparTerminal();
     console.log('Nodemon iniciou o servidor!!');
-}).on('restart', (files) => {
+
+    if(!browserAberto) {
+        exec(liveServer);
+        browserAberto = true;
+    }
+})
+.on('restart', (files) => {
     limparTerminal();
     console.log('Nodemon reiniciou o servidor!!');
 
     if(files) {
+        limparTerminal()
         console.log(`Os seguintes arquivos foram modificados: ${files}`);
     }
 
     setTimeout(() => {
-        browserSync.reload();
+        if(!browserAberto) {
+            exec(liveServer);
+            browserAberto = true;
+        }
     }, 1000);
 });
 
@@ -33,9 +49,3 @@ nodemon.on('crash', () => {
     nodemon.restart();
 });
 
-browserSync.init({
-    proxy: 'https://localhost:3000/',
-    files: ['*.js', '*.html', '*.css'],
-    port: 4000,
-    open: true
-});
